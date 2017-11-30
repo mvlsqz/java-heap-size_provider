@@ -1,0 +1,18 @@
+{
+  "name": "mvelasquez-java_heap_size_provider",
+  "version": "0.1.0",
+  "author": "mvelasquez",
+  "summary": "Will write java heap size arguments to environment startup script",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mvlsqz/java-heap-size_provider",
+  "project_page": "https://github.com/mvlsqz/java-heap-size_provider",
+  "issues_url": "https://github.com/mvlsqz/java-heap-size_provider/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
+  ],
+  "data_provider": null
+}
+
