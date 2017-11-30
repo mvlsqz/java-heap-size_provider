@@ -17,7 +17,7 @@ Puppet::Type.newtype(:java_heap_size) do
     desc 'Variable name'
     validate do |value|
       unless value.match(/(xms|xmn|xmx)/)
-        fail('Value must be a valid java env argument like xms xmn xmx')
+        fail('Argument must be a valid java env argument like xms xmn xmx')
       end
     end
   end

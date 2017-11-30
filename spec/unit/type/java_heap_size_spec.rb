@@ -19,13 +19,37 @@ describe java_heap_size do
   describe 'validating resource attributes' do
     %i[present absent].each do |attribute|
       it "should support #{attribute}" do
-        expect {
-          java_heap_size.new({
-            :name => '/opt/text.txt',
-            :ensure => attribute
-          })
-        }.to_not raise_error
+        expect do
+          java_heap_size.new(
+            name: '/opt/text.txt',
+            ensure: attribute
+          )
+        end.to_not raise_error
       end
+    end
+    it 'should not support invalid path as target parameter' do
+      expect do
+        java_heap_size.new(
+          name: 'not_valid_path'
+        )
+      end.to raise_error(Puppet::ResourceError, /Must be a valid file path/)
+    end
+    it 'should not support invalid java heap argument' do
+      expect do
+        java_heap_size.new(
+          name: '/tmp/fake_target.sh',
+          argument: 'not_valid_path'
+        )
+      end.to raise_error(Puppet::ResourceError, /Argument must be a valid/)
+    end
+    it 'should not support invalid values' do
+      expect do
+        java_heap_size.new(
+          name: '/tmp/fake_target.sh',
+          argument: 'xms',
+          value: '64L'
+        )
+      end.to raise_error(Puppet::ResourceError, /Value must be a valid size/)
     end
   end
 end
