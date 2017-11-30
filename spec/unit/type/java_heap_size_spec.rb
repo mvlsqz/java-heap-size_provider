@@ -10,7 +10,7 @@ describe java_heap_size do
         expect(java_heap_size.attrtype(parameter)).to eq(:param)
       end
     end
-    %i[ensure argument value].each do |property|
+    %i[ensure argument size].each do |property|
       it "expect to contain #{property} property" do
         expect(java_heap_size.attrtype(property)).to eq(:property)
       end
@@ -42,12 +42,12 @@ describe java_heap_size do
         )
       end.to raise_error(Puppet::ResourceError, /Argument must be a valid/)
     end
-    it 'should not support invalid values' do
+    it 'should not support invalid sizes' do
       expect do
         java_heap_size.new(
           name: '/tmp/fake_target.sh',
           argument: 'xms',
-          value: '64L'
+          size: '64L'
         )
       end.to raise_error(Puppet::ResourceError, /Value must be a valid size/)
     end

@@ -4,7 +4,7 @@ Puppet::Type.newtype(:java_heap_size) do
 
   ensurable
 
-  newparam(:target, :namevar => true) do
+  newparam(:target, namevar: true) do
     desc 'Target java env file'
     validate do |value|
       unless Pathname.new(value).absolute?
@@ -22,7 +22,7 @@ Puppet::Type.newtype(:java_heap_size) do
     end
   end
 
-  newproperty(:value) do
+  newproperty(:size) do
     desc 'The value of the variable'
     validate do |value|
       unless value.match(/^\d+(m|M|g|G)$/)
