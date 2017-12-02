@@ -4,30 +4,24 @@ Puppet::Type.newtype(:java_heap_size) do
 
   ensurable
 
-  newparam(:target, namevar: true) do
+  newproperty(:target) do
     desc 'Target java env file'
     validate do |value|
-      unless Pathname.new(value).absolute?
-        fail('Must be a valid file path')
-      end
+      Pathname.new(value).absolute? || raise(ArgumentError, 'Must be a valid file path')
     end
   end
 
-  newproperty(:argument) do
+  newparam(:name, namevar: true) do
     desc 'Variable name'
     validate do |value|
-      unless value.match(/(xms|xmn|xmx)/)
-        fail('Argument must be a valid java env argument like xms xmn xmx')
-      end
+      value =~ /(xms|xmn|xmx)/ || raise(ArgumentError, 'Name must be valid xms xmn or xmx')
     end
   end
 
   newproperty(:size) do
     desc 'The value of the variable'
     validate do |value|
-      unless value.match(/^\d+(m|M|g|G)$/)
-        fail('Value must be a valid size like 64m, 64M, 1g or 1G')
-      end
+      value =~ /^\d+(m|M|g|G)$/ || raise(ArgumentError, 'Value must be a valid size like 64m, 64M, 1g or 1G')
     end
   end
 end
